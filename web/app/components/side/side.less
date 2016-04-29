@@ -11,9 +11,10 @@
   @side-width: 258px;
   @input-width: 210px;
   @input-area-padding: (@side-width - @input-width) / 2;
+  @input-field-padding-left: 8px;
 
   width: @side-width;
-  height: 80%;
+  height: calc(~'100% - 80px');
   background-color: @base-color;
 
   position: absolute;
@@ -39,19 +40,23 @@
       height: @input-height;
       margin-bottom: 12px;
 
+      padding-left: 6px;
       font-size: 14px;
     }
 
     .text-filter {
-      width: @input-width;
+      width: @input-width - @input-field-padding-left;
     }
 
     .filter-button {
+      @button-padding-top: 12px;
+
       display: block;
       background-color: @theme-color;
-      height: @input-height;
+      height: @input-height - @button-padding-top;
       width: @input-width;
 
+      padding-top: @button-padding-top;
       text-align: center;
     }
 
@@ -64,7 +69,7 @@
       align-items: center;
 
       .num-filter {
-        width: 92px;
+        width: 92px - @input-field-padding-left;
       }
     }
   }

@@ -125,7 +125,7 @@ gulp.task("build", function () {
 });
 
 gulp.task("watch", function () {
-    gulp.watch("/app/**/**.less", ["build-dev"]);
+    gulp.watch(cssPathList, ["build-dev"]);
     gulp.watch(sourcePathList, ["build-dev"]);
 });
 

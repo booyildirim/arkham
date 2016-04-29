@@ -8,8 +8,8 @@
  */
 
 angular.module("arkham").controller("homeController",
-    ["homeHelperFactory", "objectUtil", "$scope", "$http",
-        function (homeHelperFactory, objectUtil, $scope, $http) {
+    ["homeHelperFactory", "objectUtil", "$scope", "mapHelper",
+        function (homeHelperFactory, objectUtil, $scope, mapHelper) {
             "use strict";
 
             var self = this;
@@ -21,7 +21,6 @@ angular.module("arkham").controller("homeController",
 
 
             this.markerList = $scope.markerList;
-            console.log(self.markerList);
             this.selectedMarker = "201";
             this.selectedMarkerData = null;
             this.detailsVisible = false;
@@ -32,6 +31,7 @@ angular.module("arkham").controller("homeController",
                 self.selectedMarkerData = objectUtil.findByObjectProperty(self.markerList, "_id", self.selectedMarker);
                 $scope.$apply();
 
+                mapHelper.init(null, self.markerList, true, self.selectedMarker);
                 self.detailsVisible = true;
             };
 

@@ -4,7 +4,9 @@
   height: 100%;
 
   @base-color: #363A37;
+  @theme-color: #50E3C2;
 
+  @trans-color: fade(@base-color, 70%);
   .detail-view {
     position: absolute;
     top: 0;
@@ -12,9 +14,132 @@
 
     z-index: 100;
 
-    width: 100%;
-    height: 100%;
+    width: calc(~'100% - 48px');
+    height: calc(~'100% - 48px');
 
-    background-color: fade(@base-color, 70%);
+    background-color: @trans-color;
+    padding: 24px;
+
+    color: white;
+    font-size: 14px;
+
+    .label {
+      font-size: 16px;
+      margin: 18px 0;
+    }
+
+    .detail-container {
+      background-color: @trans-color;
+      height: 100%;
+
+      .top-container {
+        height: 100px;
+        width: 100%;
+        background-color: @trans-color;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .basic-info {
+          margin-left: 24px;
+
+          .name {
+            font-size: 16px;
+            margin-bottom: 12px;
+          }
+        }
+
+        .close-icon {
+          height: 20px;
+          width: 20px;
+
+          margin-top: 12px;
+          margin-right: 12px;
+
+          align-self: flex-start;
+
+          background-image: url("../assets/icons/close_icon.png");
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+
+      .panes {
+        display: flex;
+        width: 100%;
+        height: calc(~'100% - 100px');
+
+        .left-pane, .right-pane {
+          width: 50%;
+          height: 100%;
+        }
+
+        .left-pane {
+          border-right: 2px solid @theme-color;
+          margin-left: 24px;
+
+          .customer-name {
+            display: flex;
+            align-items: center;
+
+            .customer-icon {
+              height: 25px;
+              width: 25px;
+
+              margin-right: 8px;
+
+              background-image: url("../assets/icons/person_icon.png");
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+          }
+        }
+
+        .right-pane {
+          margin-right: 24px;
+
+          .label {
+            margin-left: 24px;
+          }
+        }
+
+        .density {
+
+          .density-image {
+            height: 150px;
+            width: 150px;
+
+            background-image: url("../assets/images/chart.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            position: relative;
+
+            .density-label {
+              font-size: 55px;
+              color: black;
+
+              position: absolute;
+              bottom: 20px;
+              left: 23px;
+            }
+
+            .density-percent {
+              font-size: 35px;
+              color: black;
+
+              position: absolute;
+              bottom: 50px;
+              left: 80px;
+            }
+          }
+
+        }
+      }
+    }
   }
 }

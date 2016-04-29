@@ -1,22 +1,46 @@
 <div class="home-container">
     <div class="detail-view"
          ng-show="home.detailsVisible">
-        <div class="basic-info">
-            <div class="name" ng-bind="home.selectedMarker._source.name"></div>
-            <div class="address" ng-bind="home.selectedMarker._source.address"></div>
-        </div>
+        <div class="detail-container">
+            <div class="top-container">
+                <div class="basic-info">
+                    <div class="name" ng-bind="home.selectedMarkerData._source.name"></div>
+                    <div class="address" ng-bind="home.selectedMarkerData._source.address"></div>
+                </div>
 
-        <div class="density"
-             ng-bind="home.selectedMarker.load"></div>
+                <div class="close-icon"
+                     ng-click="home.detailsVisible = false"></div>
+            </div>
+            <div class="panes">
+                <div class="left-pane">
+                    <div class="density">
+                        <div class="label">
+                            Yogunluk
+                        </div>
+                        <div class="density-image">
+                            <div class="density-label"
+                                 ng-bind="home.selectedMarkerData._source.load * 100">
+                            </div>
+                            <div class="density-percent">
+                                %
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="customer-list">
-            <div class="label">Musteriler</div>
-            <div class="customer-name"
-                 ng-repeat="customer in home.selectedMarker._source.customers">
-                <span ng-bind="customer.id"></span>
+                    <div class="customer-list">
+                        <div class="label">Musteriler</div>
+                        <div class="customer-name"
+                             ng-repeat="customer in home.selectedMarkerData._source.customers track by customer.id">
+                            <span class="customer-icon"></span>
+                            <span ng-bind="customer.id"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-pane">
+                    <div class="label">Islemler</div>
+                </div>
             </div>
         </div>
-
     </div>
     <google-map coords="home.istanbulCoords"
                 marker-list="home.markerList"
