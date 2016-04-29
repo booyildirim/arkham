@@ -18,6 +18,7 @@ angular.module("arkham").service("mapHelper",
             var mapBounds = new google.maps.LatLngBounds();
             var markerObjects = {};
             var regionLevel;
+            var selectedMarker;
 
             var icons = {
                 CITY_LEVEL: {
@@ -171,7 +172,7 @@ angular.module("arkham").service("mapHelper",
             }
 
 
-            this.init = function (mapComponent, list, _regionLevel, selectedMarker) {
+            this.init = function (mapComponent, list, _regionLevel, _selectedMarker) {
                 if (mapComponent) {
                     var mapOptions = {
                         "center": new google.maps.LatLng(mapComponent.coords.lat, mapComponent.coords.long),
@@ -189,6 +190,9 @@ angular.module("arkham").service("mapHelper",
                 } else if (markerList) {
                     markerList = list;
                     regionLevel = _regionLevel;
+                    if (_selectedMarker) {
+                        selectedMarker = _selectedMarker
+                    }
                     clearMarkers();
                     initializeMarkers(selectedMarker);
                 }

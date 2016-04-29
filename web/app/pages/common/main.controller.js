@@ -8,12 +8,14 @@
  */
 
 angular.module("arkham").controller("mainController",
-    ["$http", "$scope", "mapHelper",
-        function ($http, $scope, mapHelper) {
+    ["$http", "$scope", "mapHelper", "$interval",
+        function ($http, $scope, mapHelper, $interval) {
             "use strict";
 
             var self = this;
+            var requestInterval = 5000; //in ms.
 
+            //TODO uncomment below once reqs can be sent, until the next todo
             var response = {
                 "took": 4,
                 "timed_out": false,
@@ -243,11 +245,21 @@ angular.module("arkham").controller("mainController",
 
             $scope.markerList = response.hits.hits;
             mapHelper.init(null, $scope.markerList);
+            //TODO until here
 
+            //TODO uncomment line below once requests can be sent
             // $scope.markerList = [];
             $scope.filter = {};
 
             var regionLevel = false;
+
+            $interval(function () {
+                //TODO remove once requests can be sent, this is to test
+                for (var i=0; i<5; i++){
+                    $scope.markerList[i]._source.load += 0.01;
+                }
+                $scope.onFilterClick();
+            },requestInterval);
 
             $scope.onFilterClick = function () {
                 var il = $scope.filter.il || null;
@@ -256,32 +268,31 @@ angular.module("arkham").controller("mainController",
                 regionLevel = $scope.filter.ilce ? true : false;
 
                 mapHelper.init(null, $scope.markerList, regionLevel);
+                //TODO comment out upper line and uncomment lower line once requests can be sent
                 //makeRequest(il, ilce, $scope.filter.minDensity);
             };
-            /*
-             function makeRequest(il, ilce, minDensity) {
-             var data = {
-             "il" : il,
-             "ilce": ilce
-             };
 
-             if (minDensity) data.density = minDensity;
-             var req = {
-             url: "http://10.58.4.135:8080/api/density",
-             method: "POST",
-             data: data
-             };
+            function makeRequest(il, ilce, minDensity) {
+                var data = {
+                    "il": il,
+                    "ilce": ilce
+                };
 
-             $http(req).success(function(resp){
-             response = resp;
-             $scope.markerList = response.hits.hits;
-             mapHelper.init(null, $scope.markerList, $scope.regionLevel);
-             }).error(function(resp){
-             response = resp;
-             });
-             }
-             */
+                if (minDensity) data.density = minDensity;
+                var req = {
+                    url: "http://10.58.4.135:8080/api/density",
+                    method: "POST",
+                    data: data
+                };
 
+                $http(req).success(function (resp) {
+                    response = resp;
+                    $scope.markerList = response.hits.hits;
+                    mapHelper.init(null, $scope.markerList, $scope.regionLevel);
+                }).error(function (resp) {
+                    response = resp;
+                });
+            }
         }
     ]
 );
