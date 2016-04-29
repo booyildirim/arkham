@@ -1,0 +1,71 @@
+//210 44
+//92 44
+//SF
+//placeholder opacity %50
+//acik yerler direk beyaz
+//Adres: 16 600, istanbul, kadikoy 14px, (CAPS) filterele - 16px
+
+.side {
+  @theme-color: #50E3C2;
+  @base-color: #363A37;
+  @side-width: 258px;
+  @input-width: 210px;
+  @input-area-padding: (@side-width - @input-width) / 2;
+
+  width: @side-width;
+  height: 80%;
+  background-color: @base-color;
+
+  position: absolute;
+
+  .input-area {
+    @input-height: 44px;
+    padding: @input-area-padding;
+
+    .label, .filter-button {
+      color: white;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .label {
+      display: block;
+      margin: 12px 0;
+    }
+
+    .text-filter, .num-filter {
+      display: block;
+      background-color: white;
+      height: @input-height;
+      margin-bottom: 12px;
+
+      font-size: 14px;
+    }
+
+    .text-filter {
+      width: @input-width;
+    }
+
+    .filter-button {
+      display: block;
+      background-color: @theme-color;
+      height: @input-height;
+      width: @input-width;
+
+      text-align: center;
+    }
+
+    .density {
+      margin-top: 24px;
+    }
+    .density-filter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .num-filter {
+        width: 92px;
+      }
+    }
+  }
+}

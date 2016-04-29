@@ -1,0 +1,28 @@
+<div class="side">
+    <div class="input-area">
+        <span class="label">Adres</span>
+        <input class="text-filter"
+               placeholder="Il"
+               ng-model="filter.il">
+        <input class="text-filter"
+               placeholder="Ilce"
+               ng-model="filter.ilce">
+
+
+        <div class="density">
+            <span class="label">Yogunluk Orani</span>
+
+            <div class="density-filter">
+                <input class="num-filter"
+                       placeholder="Min %"
+                       ng-model="filer.min">
+                <span class="separator"></span>
+                <input class="num-filter"
+                       placeholder="Max %"
+                       ng-model="filter.max">
+            </div>
+        </div>
+        <div class="filter-button"
+                ng-click="onFilterClick()">Filtrele</div>
+    </div>
+</div>.

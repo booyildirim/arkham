@@ -1,0 +1,25 @@
+<div class="home-container">
+    <div class="detail-view"
+         ng-show="home.detailsVisible">
+        <div class="basic-info">
+            <div class="name" ng-bind="home.selectedMarker._source.name"></div>
+            <div class="address" ng-bind="home.selectedMarker._source.address"></div>
+        </div>
+
+        <div class="density"
+             ng-bind="home.selectedMarker.load"></div>
+
+        <div class="customer-list">
+            <div class="label">Musteriler</div>
+            <div class="customer-name"
+                 ng-repeat="customer in home.selectedMarker._source.customers">
+                <span ng-bind="customer.id"></span>
+            </div>
+        </div>
+
+    </div>
+    <google-map coords="home.istanbulCoords"
+                marker-list="home.markerList"
+                marker-callback="home.markerClickCallback">
+    </google-map>
+</div>
