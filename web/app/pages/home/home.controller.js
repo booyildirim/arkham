@@ -27,11 +27,16 @@ angular.module("arkham").controller("homeController",
 
             this.markerClickCallback = function () {
                 //TODO change code to index prop that will be given by mw
+                self.markerList = $scope.markerList;
                 self.selectedMarker = this.index;
-                self.selectedMarkerData = objectUtil.findByObjectProperty(self.markerList, "_id", self.selectedMarker);
+                self.selectedMarkerData = objectUtil.findByObjectProperty($scope.markerList, "_id", self.selectedMarker);
                 $scope.$apply();
 
-                mapHelper.init(null, self.markerList, true, self.selectedMarker);
+                console.log(self.markerList);
+
+                mapHelper.selectMarker(self.selectedMarkerData);
+
+               // mapHelper.init(null, self.markerList, true, self.selectedMarker);
                 self.detailsVisible = true;
             };
 

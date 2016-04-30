@@ -19,6 +19,7 @@ angular.module("arkham").service("mapHelper",
             var markerObjects = {};
             var regionLevel;
             var selectedMarker;
+            var currLevel;
 
             var icons = {
                 CITY_LEVEL: {
@@ -113,9 +114,9 @@ angular.module("arkham").service("mapHelper",
                     markerStatus = "BUSY";
                 }
 
-                if (isMarkerSelected){
+                if (isMarkerSelected) {
                     markerLevel = "SELECTED";
-                }else if (regionLevel) {
+                } else if (currLevel) {
                     markerLevel = "REGION_LEVEL";
                 } else {
                     markerLevel = "CITY_LEVEL";
@@ -124,7 +125,7 @@ angular.module("arkham").service("mapHelper",
                 return icons[markerLevel][markerStatus];
             }
 
-            function initializeMarkers(selectedMarker) {
+            function initializeMarkers() {
 
                 var markerListLength = markerList.length;
                 var isMarkerSelected;
@@ -133,14 +134,15 @@ angular.module("arkham").service("mapHelper",
                     map: map
                 };
 
-                if (selectedMarker || regionLevel) {
-                    map.setZoom(15);
+                if (!currLevel && regionLevel) {
+                    map.setZoom(13);
+                    currLevel = regionLevel;
                 }
 
                 for (var markerIndex = 0; markerIndex < markerListLength; markerIndex++) {
                     var markerData = markerList[markerIndex];
 
-                    isMarkerSelected = (selectedMarker === markerData._id);
+                    isMarkerSelected = markerData._id === selectedMarker;
 
                     markerOptions.position = new google.maps.LatLng(markerData._source.ycoor, markerData._source.xcoor);
                     markerOptions.index = markerData._id;
@@ -190,16 +192,21 @@ angular.module("arkham").service("mapHelper",
                 } else if (markerList) {
                     markerList = list;
                     regionLevel = _regionLevel;
-                    if (_selectedMarker) {
-                        selectedMarker = _selectedMarker
-                    }
                     clearMarkers();
                     initializeMarkers(selectedMarker);
                 }
             };
 
+            this.selectMarker = function (_selectedMarkerData) {
+                selectedMarker = _selectedMarkerData._id;
 
-        }
-
-    ]
-);
+                if(!currLevel){
+                    regionLevel = true;
+                    clearMarkers();
+                    initializeMarkers();
+                } else {
+                    var newIcon = determineMarkerIcon(_selectedMarkerData.load, true);
+                    markerObjects[selectedMarker].setIcon(newIcon);
+                }
+            }
+        }]);
