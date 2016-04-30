@@ -106,9 +106,9 @@ angular.module("arkham").service("mapHelper",
                 var markerStatus;
                 var markerLevel;
                 //TODO icon
-                if (density <= 0.33) {
+                if (density <= 33) {
                     markerStatus = "EMPTY";
-                } else if (density <= 0.66) {
+                } else if (density <= 66) {
                     markerStatus = "MEDIUM";
                 } else {
                     markerStatus = "BUSY";
