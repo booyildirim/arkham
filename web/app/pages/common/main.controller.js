@@ -14,8 +14,9 @@ angular.module("arkham").controller("mainController",
 
             var self = this;
             var requestInterval = 5000; //in ms.
+            var response;
 
-            //TODO uncomment below once reqs can be sent, until the next todo
+            /*
             var response = {
                 "took": 4,
                 "timed_out": false,
@@ -245,19 +246,19 @@ angular.module("arkham").controller("mainController",
 
             $scope.markerList = response.hits.hits;
             mapHelper.init(null, $scope.markerList);
-            //TODO until here
+            /*/
 
-            //TODO uncomment line below once requests can be sent
-            // $scope.markerList = [];
+
+            $scope.markerList = [];
             $scope.filter = {};
 
             var regionLevel = false;
 
             $interval(function () {
-                //TODO remove once requests can be sent, this is to test
+                /*TODO remove once requests can be sent, this is to test
                 for (var i=0; i<5; i++){
                     $scope.markerList[i]._source.load += 0.01;
-                }
+                }*/
                 $scope.onFilterClick();
             },requestInterval);
 
@@ -267,9 +268,8 @@ angular.module("arkham").controller("mainController",
 
                 regionLevel = $scope.filter.ilce ? true : false;
 
-                mapHelper.init(null, $scope.markerList, regionLevel);
-                //TODO comment out upper line and uncomment lower line once requests can be sent
-                //makeRequest(il, ilce, $scope.filter.minDensity);
+                //mapHelper.init(null, $scope.markerList, regionLevel);
+                makeRequest(il, ilce, $scope.filter.minDensity);
             };
 
             function makeRequest(il, ilce, minDensity) {
@@ -288,7 +288,7 @@ angular.module("arkham").controller("mainController",
                 $http(req).success(function (resp) {
                     response = resp;
                     $scope.markerList = response.hits.hits;
-                    mapHelper.init(null, $scope.markerList, $scope.regionLevel);
+                    mapHelper.init(null, $scope.markerList, regionLevel);
                 }).error(function (resp) {
                     response = resp;
                 });
