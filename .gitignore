@@ -1,0 +1,4 @@
+web/.idea
+web/bower_components
+web/dist
+web/node_modules
