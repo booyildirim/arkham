@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="close-icon"
-                     ng-click="home.detailsVisible = false"></div>
+                     ng-click="home.close()"></div>
             </div>
             <div class="panes">
                 <div class="left-pane">
@@ -30,6 +30,7 @@
                     <div class="customer-list">
                         <div class="label">Musteriler</div>
                         <div class="customer-name"
+                             ng-if="customer.active"
                              ng-repeat="customer in home.selectedMarkerData._source.customers track by customer.id">
                             <span class="customer-icon"></span>
                             <span ng-bind="customer.id"></span>
@@ -38,6 +39,13 @@
                 </div>
                 <div class="right-pane">
                     <div class="label">Islemler</div>
+                    <div class="islemler-icon">
+
+                    </div>
+                    <div class="label">Ortalama Islem Suresi</div>
+                    <div class="ortalama-icon">
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -68,21 +68,24 @@
 
       .panes {
         display: flex;
+        justify-content: space-between;
         width: 100%;
         height: calc(~'100% - 100px');
 
         .left-pane, .right-pane {
-          width: 50%;
+          width: 48%;
           height: 100%;
         }
 
         .left-pane {
-          border-right: 2px solid @theme-color;
+          //border-right: 2px solid @theme-color;
           margin-left: 24px;
+          margin-right: 12px;
 
           .customer-name {
             display: flex;
             align-items: center;
+            margin-bottom: 8px;
 
             .customer-icon {
               height: 25px;
@@ -103,6 +106,30 @@
 
           .label {
             margin-left: 24px;
+          }
+
+          .islemler-icon {
+            margin-left: 24px;
+
+            height: 150px;
+            width: 200px;
+
+            background-image: url("../assets/images/graphic_3.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+
+          .ortalama-icon {
+            margin-left: 24px;
+
+            height: 150px;
+            width: 150px;
+
+            background-image: url("../assets/images/time.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
           }
         }
 
