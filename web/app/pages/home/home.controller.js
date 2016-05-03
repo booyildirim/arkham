@@ -21,24 +21,48 @@ angular.module("arkham").controller("homeController",
 
 
             this.markerList = $scope.markerList;
-            this.selectedMarker = "201";
+            this.selectedMarker = null;
             this.selectedMarkerData = null;
             this.detailsVisible = false;
 
+
+            $scope.$on("listChanged", function () {
+                console.log("list change event");
+                if (self.selectedMarker) {
+                    self.selectedMarkerData = objectUtil.findByObjectProperty($scope.markerList, "_id", self.selectedMarker);
+                    if (self.selectedMarkerData){
+                        populateCustomers();
+                        mapHelper.selectMarker(self.selectedMarkerData);
+                    }
+
+                }
+            });
+
             this.markerClickCallback = function () {
-                //TODO change code to index prop that will be given by mw
                 self.markerList = $scope.markerList;
                 self.selectedMarker = this.index;
                 self.selectedMarkerData = objectUtil.findByObjectProperty($scope.markerList, "_id", self.selectedMarker);
-                $scope.$apply();
+                //$scope.$apply();
 
-                console.log(self.markerList);
-
-                mapHelper.selectMarker(self.selectedMarkerData);
+                if (self.selectedMarkerData){
+                    populateCustomers();
+                    mapHelper.selectMarker(self.selectedMarkerData);
+                }
 
                // mapHelper.init(null, self.markerList, true, self.selectedMarker);
                 self.detailsVisible = true;
             };
+
+            function populateCustomers() {
+                var customers = [{id: "Ahmet Tasyurek", active: true}, {id: "Mehmet Tasasiz", active: true},
+                    {id: "Buse Gergin", active: true}, {id: "Zeynep Aslan", active: true}];
+
+                if(!self.selectedMarkerData._source.customers) {
+                    self.selectedMarkerData._source.customers = customers;
+                } else if (self.selectedMarkerData._source.customers[0].id === 1) {
+                    self.selectedMarkerData._source.customers[0].id = "Alper Cem Polat";
+                }
+            }
 
             var homeHelper = homeHelperFactory.newInstance(self);
 

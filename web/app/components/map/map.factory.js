@@ -150,6 +150,10 @@ angular.module("arkham").service("mapHelper",
 
                     markerOptions.icon = determineMarkerIcon(markerData._source.load, isMarkerSelected);
 
+                    if(markerIndex === markerListLength - 1){
+                        map.setCenter(markerOptions.position);
+                    }
+
                     addMarker(markerOptions, markerClickCallback, mapBounds, markerObjects);
                 }
 
@@ -174,7 +178,7 @@ angular.module("arkham").service("mapHelper",
             }
 
 
-            this.init = function (mapComponent, list, _regionLevel, _selectedMarker) {
+            this.init = function (mapComponent, list, _regionLevel) {
                 if (mapComponent) {
                     var mapOptions = {
                         "center": new google.maps.LatLng(mapComponent.coords.lat, mapComponent.coords.long),
@@ -193,7 +197,7 @@ angular.module("arkham").service("mapHelper",
                     markerList = list;
                     regionLevel = _regionLevel;
                     clearMarkers();
-                    initializeMarkers(selectedMarker);
+                    initializeMarkers();
                 }
             };
 
@@ -205,7 +209,7 @@ angular.module("arkham").service("mapHelper",
                     clearMarkers();
                     initializeMarkers();
                 } else {
-                    var newIcon = determineMarkerIcon(_selectedMarkerData.load, true);
+                    var newIcon = determineMarkerIcon(_selectedMarkerData._source.load, true);
                     markerObjects[selectedMarker].setIcon(newIcon);
                 }
             }

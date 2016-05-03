@@ -13,7 +13,7 @@ angular.module("arkham").controller("mainController",
             "use strict";
 
             var self = this;
-            var requestInterval = 5000; //in ms.
+            var requestInterval = 1000; //in ms.
             var response;
 
             /*
@@ -274,7 +274,7 @@ angular.module("arkham").controller("mainController",
                 }
 
                 //mapHelper.init(null, $scope.markerList, regionLevel);
-                makeRequest(il, ilce, $scope.filter.minDensity);
+                makeRequest(il, ilce, $scope.filter.min);
             };
 
             function makeRequest(il, ilce, minDensity) {
@@ -283,7 +283,7 @@ angular.module("arkham").controller("mainController",
                     "ilce": ilce
                 };
 
-                if (minDensity) data.density = minDensity;
+                if (minDensity) data.percent = minDensity;
                 var req = {
                     url: "http://10.58.4.135:8080/api/density",
                     method: "POST",
@@ -292,8 +292,12 @@ angular.module("arkham").controller("mainController",
 
                 $http(req).success(function (resp) {
                     response = resp;
-                    $scope.markerList = response.hits.hits;
-                    mapHelper.init(null, $scope.markerList, regionLevel);
+                    if (!angular.equals($scope.markerList, response.hits.hits)) {
+                        $scope.markerList = response.hits.hits;
+                        mapHelper.init(null, $scope.markerList, regionLevel);
+                        $scope.$broadcast("listChanged");
+                    }
+
                 }).error(function (resp) {
                     response = resp;
                 });
